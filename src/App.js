@@ -1,24 +1,56 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { loadUser } from "./slices/authSlice";
+import React from "react";
+import "./App.css";
+import { ToastContainer } from "react-toastify";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/navbar/Navbar";
+import Home from "./components/home/Home";
+import Shop from "./components/shop/Shop";
+import NoteState from "./context/notes/NoteState";
+import Alert from "./components/alert/Alert";
+import Login from "./components/login/Login";
+import Signup from "./components/signup/Signup";
+import AlertState from "./context/alerts/AlertState";
+import NotFound from "./components/notfound/NotFound"
+import CheckoutSuccess from "./components/CheckoutSuccess";
+import Cart from "./components/cart/Cart"
+
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(loadUser(null));
+  }, [dispatch]);
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <AlertState>
+    <NoteState>
+      <BrowserRouter>
+      <ToastContainer />
+        <Navbar />
+      <Alert />
+        <div className="container ">
+        <Routes>
+          <Route exact path="/" element={<Home />} ></Route>
+          <Route exact path="/shop" element={<Shop />} ></Route>
+          <Route path="/checkout-success" element={<CheckoutSuccess />} />
+          <Route exact path="/login" element={<Login />} ></Route>
+          <Route exact path="/signup" element={<Signup  />} ></Route>
+          <Route exact path="/cart" element={<Cart  />} ></Route>
+          <Route path="*" element={<NotFound />} />
+         
+        </Routes>
+
+        </div>
+      </BrowserRouter>
+      </NoteState>
+
+      </AlertState>
+    </>
   );
 }
 
