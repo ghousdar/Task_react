@@ -37,6 +37,7 @@ export const productsCreate = createAsyncThunk(
       formData.append("productName", credentials.productName);
       formData.append("description", credentials.description);
       formData.append("price", credentials.price);
+    
   
       
 

@@ -27,7 +27,7 @@ export default function Shop() {
               data?.map((product) => (
                 <div key={product._id} className="product">
                   <h3>{product.name}</h3>
-                  <img src={"http://localhost:5000/backend/images/"+product.image} alt={product.name} />
+                  <img src={"http://localhost:5000/backend/images/"+product.image} alt={product.productName} />
                   <div className="details">
                     <span>{product.desc}</span>
                     <span className="price">${product.price}</span>

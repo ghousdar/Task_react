@@ -11,7 +11,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
 
-  // console.log(auth.role)
+
 
   useEffect(() => {
     // it will return true or false
@@ -25,12 +25,16 @@ const Home = () => {
     // eslint-disable-next-line
   }, []);
 
+
+
+  
+
   return (
     <>
       {showdata === true ? (
         <div>
    
-          {auth.role === "user" ? <Shop /> : <AdminPost/>}
+          {auth.isAdmin === "user" ? <Shop /> : <AdminPost/>}
         </div>
       ) : (
         ""
