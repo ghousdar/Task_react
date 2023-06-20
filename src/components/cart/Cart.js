@@ -109,7 +109,7 @@ const Cart = () => {
                 <span>Subtotal</span>
                 <span className="amount">Rs.{cart.cartTotalAmount}</span>
               </div>
-              <p>Taxes and shipping calculated at checkout</p>
+              {/* <p>Taxes and shipping calculated at checkout</p> */}
               {auth._id ? (
                 <PayButton cartItems={cart.cartItems} />
               ) : (

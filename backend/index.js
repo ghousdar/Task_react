@@ -7,12 +7,14 @@ const path = require('path');
 
 // folders & files
 const connectToMongo = require("./config/database");
+
 const userroutes = require("./routes/userRoute");
 const productroutes = require("./routes/productRoute")
+const stock = require("./routes/stock.js");
 
 
 
-const products = require ("./products");
+// const products = require ("./products");
 
 
 // connection will database function call
@@ -69,6 +71,7 @@ app.use("/api/auth", userroutes);
 // })
 app.use("/api/products",productroutes)
 
+app.use("/api/stock", stock);
 
 // listen at port no
 app.listen(port, () => {
