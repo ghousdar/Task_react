@@ -12,13 +12,17 @@ const ProductSchema = new Schema({
         type: String,
         required: true,
         minlength:3,
-        maxlength:30,
+       
     },
     price:{
         type: String,
         required: true,
 
         maxlength:30,
+    },
+    quantity:{
+        type: String,
+    
     },
 
     image:{

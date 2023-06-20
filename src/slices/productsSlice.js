@@ -37,7 +37,7 @@ export const productsCreate = createAsyncThunk(
       formData.append("productName", credentials.productName);
       formData.append("description", credentials.description);
       formData.append("price", credentials.price);
-    
+      formData.append("quantity", credentials.quantity);
   
       
 
@@ -75,8 +75,8 @@ const productsSlice = createSlice({
       state.createStatus = "pending";
     },
     [productsCreate.fulfilled]: (state, action) => {
-     // state.items.push(action.payload);
-      //state.createStatus = "success";
+      state.items.push(action.payload);
+      state.createStatus = "success";
       toast.success("Product Created!");
     },
     [productsCreate.rejected]: (state, action) => {

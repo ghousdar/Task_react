@@ -21,6 +21,7 @@ exports.createproduct = async (req, res) => {
         productName: req.body.productName,
         description: req.body.description,
         price: req.body.price,
+        quantity: req.body.quantity,
         image: profilePic,
       });
   
@@ -30,15 +31,16 @@ exports.createproduct = async (req, res) => {
         productName: product.productName,
         description: product.description,
         price: product.price,
+        quantity:product.quantity,
         image: product.image,
         // },
       };
-   //   const authtoken = jwt.sign(data, JWT_SECRET);
+      const authtoken = jwt.sign(data, JWT_SECRET);
       success = true;
       // nechy wali line ko tb uncomment krna jb testing krni ho werna br br gmail pr message jye ga
   
    ///*  sendVerifyEmail(req.body.name,req.body.email,user._id)  *///
-        res.json(success);
+        res.json(authtoken);
       
   
     } catch (error) {

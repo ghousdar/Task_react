@@ -16,16 +16,38 @@ const cartSlice = createSlice({
     addToCart(state, action) {
       const existingIndex = state.cartItems.findIndex(
         (item) => item._id === action.payload._id
+     
       );
 
-      if (existingIndex >= 0) {
-        state.cartItems[existingIndex] = {
-          ...state.cartItems[existingIndex],
-          cartQuantity: state.cartItems[existingIndex].cartQuantity + 1,
-        };
-        toast.info("Increased product quantity", {
-          position: "bottom-left",
-        });
+     
+    
+      if (existingIndex >= 0 ) {
+
+
+    
+        if (parseInt(state.cartItems[existingIndex].cartQuantity) + 1 > parseInt(state.cartItems[existingIndex].quantity)) {
+          toast.warning("Maximum quantity reached", {
+            position: "bottom-left",
+          });
+          return { ...state }; // Exit the function without modifying the state
+        }
+        else {
+
+          state.cartItems[existingIndex] = {
+            ...state.cartItems[existingIndex],
+            cartQuantity: state.cartItems[existingIndex].cartQuantity + 1,
+          };
+  
+          toast.info("Increased product quantity", {
+            position: "bottom-left",
+          });
+
+        }
+
+
+      
+
+
       } else {
         let tempProductItem = { ...action.payload, cartQuantity: 1 };
         state.cartItems.push(tempProductItem);

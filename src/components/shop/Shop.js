@@ -30,7 +30,7 @@ export default function Shop() {
                   <img src={"http://localhost:5000/backend/images/"+product.image} alt={product.productName} />
                   <div className="details">
                     <span>{product.desc}</span>
-                    <span className="price">${product.price}</span>
+                    <span className="price">Rs. {product.price}</span>
                   </div>
                   <button onClick={() => handleAddToCart(product)}>
                     Add To Cart

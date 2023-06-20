@@ -10,6 +10,7 @@ const AdminPost = () => {
     description: "",
     price: "",
     image: "",
+    quantity: "",
   });
 
   const onChange = (e) => {
@@ -99,6 +100,20 @@ const AdminPost = () => {
                 onChange={onChange}
                 id="price"
                 name="price"
+                required
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="email" className="form-label">
+                Quantity
+              </label>
+              <input
+                type="number"
+                className="form-control"
+                value={credentials.quantity}
+                onChange={onChange}
+                id="quantity"
+                name="quantity"
                 required
               />
             </div>
