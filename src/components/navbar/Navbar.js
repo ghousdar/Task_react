@@ -13,7 +13,7 @@ export default function Navbar() {
   const dispatch = useDispatch();
   const { cartTotalQuantity } = useSelector((state) => state.cart);
   const auth = useSelector((state) => state.auth);
- // console.log(auth.isAdmin)
+  // console.log(auth.isAdmin)
 
   // destructure kia ta ky easily use kr saken
   const { getAllUsers } = context;
@@ -40,7 +40,6 @@ export default function Navbar() {
       },
     });
     const json = await response.status;
-   
 
     if (json === 200) {
       localStorage.removeItem("token");
@@ -120,10 +119,8 @@ export default function Navbar() {
 
     //credentials.image = file
     setCredentials({ ...credentials, image: e.target.files[0] });
-   // console.log(e.target.files[0]);
+    // console.log(e.target.files[0]);
   };
-
-
 
   // console.log(auth);
 
@@ -172,35 +169,40 @@ export default function Navbar() {
                     Shop
                   </Link>
                 </li> */}
-                <li className="nav-item">
-                  <Link
-                    className={`nav-link ${
-                      location.pathname === "/cart" ? "active" : ""
-                    }`}
-                    to="/cart"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill={`${
-                        location.pathname === "/cart"
-                          ? "white"
-                          : "var(--bs-nav-link-color)"
+                {auth.isAdmin === "user" ? (
+                  <li className="nav-item">
+                    <Link
+                      className={`nav-link ${
+                        location.pathname === "/cart" ? "active" : ""
                       }`}
-                      className="bi bi-handbag-fill mb-1 mx-1"
-                      viewBox="0 0 16 16"
+                      to="/cart"
                     >
-                      <path d="M8 1a2 2 0 0 0-2 2v2H5V3a3 3 0 1 1 6 0v2h-1V3a2 2 0 0 0-2-2zM5 5H3.36a1.5 1.5 0 0 0-1.483 1.277L.85 13.13A2.5 2.5 0 0 0 3.322 16h9.355a2.5 2.5 0 0 0 2.473-2.87l-1.028-6.853A1.5 1.5 0 0 0 12.64 5H11v1.5a.5.5 0 0 1-1 0V5H6v1.5a.5.5 0 0 1-1 0V5z" />
-                    </svg>
-                    Cart
-                    <span className=" mx-1 bag-quantity ">
-                      <span className="badge bg-secondary">
-                        {cartTotalQuantity}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill={`${
+                          location.pathname === "/cart"
+                            ? "white"
+                            : "var(--bs-nav-link-color)"
+                        }`}
+                        className="bi bi-handbag-fill mb-1 mx-1"
+                        viewBox="0 0 16 16"
+                      >
+                        <path d="M8 1a2 2 0 0 0-2 2v2H5V3a3 3 0 1 1 6 0v2h-1V3a2 2 0 0 0-2-2zM5 5H3.36a1.5 1.5 0 0 0-1.483 1.277L.85 13.13A2.5 2.5 0 0 0 3.322 16h9.355a2.5 2.5 0 0 0 2.473-2.87l-1.028-6.853A1.5 1.5 0 0 0 12.64 5H11v1.5a.5.5 0 0 1-1 0V5H6v1.5a.5.5 0 0 1-1 0V5z" />
+                      </svg>
+                      Cart
+                      <span className=" mx-1 bag-quantity ">
+                        <span className="badge bg-secondary">
+                          {cartTotalQuantity}
+                        </span>
                       </span>
-                    </span>
-                  </Link>
-                </li>
+                    </Link>
+                  </li>
+                ) : (
+                  ""
+                )}
+
                 <div className="nav-bag"></div>
               </ul>
               {/* { auth.isAdmin === "admin" ? 
@@ -214,11 +216,11 @@ export default function Navbar() {
                 ""
               } */}
 
-              {auth._id ? 
+              {auth._id ? (
                 <button onClick={handleLogout} className="btn btn-primary mx-1">
                   Logout
                 </button>
-               : 
+              ) : (
                 <form className="d-flex">
                   <Link
                     to="/login"
@@ -235,7 +237,7 @@ export default function Navbar() {
                     Signup
                   </Link>
                 </form>
-              }
+              )}
             </div>
           </div>
         </nav>
