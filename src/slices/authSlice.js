@@ -60,21 +60,7 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-export const getUser = createAsyncThunk(
-  "auth/getUser",
-  async (id, { rejectWithValue }) => {
-    try {
-      const token = await axios.get(`${url}/user/${id}`, setHeaders());
 
-      localStorage.setItem("token", token.data);
-
-      return token.data;
-    } catch (error) {
-      console.log(error.response);
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
 
 const authSlice = createSlice({
   name: "auth",
@@ -165,33 +151,7 @@ const authSlice = createSlice({
         loginError: action.payload,
       };
     });
-    builder.addCase(getUser.pending, (state, action) => {
-      return {
-        ...state,
-        getUserStatus: "pending",
-      };
-    });
-    builder.addCase(getUser.fulfilled, (state, action) => {
-      if (action.payload) {
-        const user = jwtDecode(action.payload);
-        return {
-          ...state,
-          token: action.payload,
-          name: user.name,
-          email: user.email,
-          _id: user._id,
-          isAdmin: user.role,
-          getUserStatus: "success",
-        };
-      } else return state;
-    });
-    builder.addCase(getUser.rejected, (state, action) => {
-      return {
-        ...state,
-        getUserStatus: "rejected",
-        getUserError: action.payload,
-      };
-    });
+  
   },
 });
 

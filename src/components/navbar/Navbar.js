@@ -1,27 +1,19 @@
-import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import noteContext from "../../context/notes/noteContext";
-import React, { useContext, useState, useRef } from "react";
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import alertContext from "../../context/alerts/alertContext";
 import { logoutUser } from "../../slices/authSlice";
 import { toast } from "react-toastify";
 
 export default function Navbar() {
-  const context = useContext(noteContext);
+
   const dispatch = useDispatch();
   const { cartTotalQuantity } = useSelector((state) => state.cart);
   const auth = useSelector((state) => state.auth);
   // console.log(auth.isAdmin)
 
-  // destructure kia ta ky easily use kr saken
-  const { getAllUsers } = context;
+ 
 
-  // to use alert using context
-  const alertcontext = useContext(alertContext);
-  /// de strusture
-  const { showAlert } = alertcontext;
 
   // to navigate from one component to other
   const navigate = useNavigate();
@@ -46,81 +38,24 @@ export default function Navbar() {
       localStorage.removeItem("role");
       navigate("/login");
 
-      showAlert("Logout  successfully ", "success");
+   
     } else {
       //  alert("Invalid credentials");
-      showAlert("Invalid credential", "danger");
+
     }
 
     dispatch(logoutUser(null));
   };
-  const handleAdduser = () => {
-    console.log("clickied");
-    addUserRef.current.click();
-  };
 
-  const addUserRef = useRef(null);
-  const refClose = useRef(null);
 
-  const [credentials, setCredentials] = useState({
-    name: "",
-    email: "",
-    password: "",
-    number: "",
-    role: "user",
-    image: "",
-  });
-  const { name, email, password, role, number } = credentials;
+ 
+  
 
-  const handleClick = async (e) => {
-    e.preventDefault();
-    try {
-      const formata = new FormData();
-      formata.append("image", credentials.image, credentials.image.name);
-      formata.append("name", name);
-      formata.append("email", email);
-      formata.append("password", password);
-      formata.append("role", role);
-      formata.append("number", number);
 
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/createuser",
-        formata
-      );
-      //  const json = await response.json();
 
-      const json = await response.data;
-      console.log(json);
-      if (json) {
-        getAllUsers();
-        // Save the auth token and redirect
-        // localStorage.setItem("token", json.authtoken);
-        //  navigate("/");
-        refClose.current.click();
-        showAlert("Account added successfully ", "success");
-      } else {
-        //  alert("Invalid credentials");
-        showAlert("Invalid details", "danger");
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  };
 
-  const onChange = (e) => {
-    setCredentials({ ...credentials, [e.target.name]: e.target.value });
-  };
 
-  // image wala km
-  const [img, setImg] = useState();
-  const onImageChange = (e) => {
-    const [file] = e.target.files;
-    setImg(URL.createObjectURL(file));
 
-    //credentials.image = file
-    setCredentials({ ...credentials, image: e.target.files[0] });
-    // console.log(e.target.files[0]);
-  };
 
   // console.log(auth);
 
@@ -242,133 +177,7 @@ export default function Navbar() {
           </div>
         </nav>
 
-        {/* ///to view model */}
-
-        <button
-          type="button"
-          ref={addUserRef}
-          className="btn btn-primary d-none"
-          data-bs-toggle="modal"
-          data-bs-target="#Modaltwo"
-        >
-          Launch demo modal
-        </button>
-        <div
-          className="modal fade"
-          id="Modaltwo"
-          tabIndex="-1"
-          aria-labelledby="exampleModalLabeltwo"
-          aria-hidden="true"
-        >
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title " id="exampleModalLabeltwo">
-                  Add user
-                </h5>
-
-                <button
-                  type="button"
-                  className="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div className="modal-body">
-                <form className="my-3">
-                  <div className="my-3">
-                    <input type="file" onChange={onImageChange} />
-                    <img src={img} alt="" width={100} height={100} />
-                  </div>
-
-                  <div className="mb-3">
-                    <label htmlFor="name" className="form-label">
-                      Name
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      value={credentials.name}
-                      onChange={onChange}
-                      id="name"
-                      name="name"
-                      minLength={5}
-                      required
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label htmlFor="email" className="form-label">
-                      Email address
-                    </label>
-                    <input
-                      type="email"
-                      className="form-control"
-                      value={credentials.email}
-                      onChange={onChange}
-                      id="email"
-                      name="email"
-                      aria-describedby="emailHelp"
-                    />
-                    <div id="emailHelp" className="form-text">
-                      We'll never share your email with anyone else.
-                    </div>
-                  </div>
-                  <div className="mb-3">
-                    <label htmlFor="password" className="form-label">
-                      Password
-                    </label>
-                    <input
-                      type="password"
-                      className="form-control"
-                      value={credentials.password}
-                      onChange={onChange}
-                      name="password"
-                      id="password"
-                      required
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label htmlFor="cpassword" className="form-label">
-                      Phone Number
-                    </label>
-                    <input
-                      type="ditits"
-                      className="form-control"
-                      value={credentials.number}
-                      onChange={onChange}
-                      name="number"
-                      id="number"
-                      required
-                    />
-                  </div>
-                </form>
-              </div>
-              <div className="modal-footer">
-                <button
-                  ref={refClose}
-                  type="button"
-                  className="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  Close
-                </button>
-                <button
-                  disabled={
-                    credentials.name.length < 5 ||
-                    credentials.password.length < 5 ||
-                    credentials.number.length < 5 ||
-                    img === undefined
-                  }
-                  onClick={handleClick}
-                  type="button"
-                  className="btn btn-primary"
-                >
-                  Add User
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+  
       </div>
     </>
   );

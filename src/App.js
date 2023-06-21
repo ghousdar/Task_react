@@ -8,13 +8,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/navbar/Navbar";
 import Home from "./components/home/Home";
 import Shop from "./components/shop/Shop";
-import NoteState from "./context/notes/NoteState";
-import Alert from "./components/alert/Alert";
+
+
 import Login from "./components/login/Login";
 import Signup from "./components/signup/Signup";
-import AlertState from "./context/alerts/AlertState";
+
 import NotFound from "./components/notfound/NotFound"
-import CheckoutSuccess from "./components/CheckoutSuccess";
 import Cart from "./components/cart/Cart"
 
 
@@ -27,17 +26,15 @@ function App() {
 
   return (
     <>
-    <AlertState>
-    <NoteState>
+   
       <BrowserRouter>
       <ToastContainer />
         <Navbar />
-      <Alert />
+
         <div className="container ">
         <Routes>
           <Route exact path="/" element={<Home />} ></Route>
           <Route exact path="/shop" element={<Shop />} ></Route>
-          <Route path="/checkout-success" element={<CheckoutSuccess />} />
           <Route exact path="/login" element={<Login />} ></Route>
           <Route exact path="/signup" element={<Signup  />} ></Route>
           <Route exact path="/cart" element={<Cart  />} ></Route>
@@ -47,9 +44,7 @@ function App() {
 
         </div>
       </BrowserRouter>
-      </NoteState>
-
-      </AlertState>
+   
     </>
   );
 }

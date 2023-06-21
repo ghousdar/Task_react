@@ -1,17 +1,17 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import alertContext from "../../context/alerts/alertContext";
+
 import { registerUser } from "../../slices/authSlice";
 import { isEmpty } from "lodash";
 
 const Signup = () => {
   // to use alert using context
-  const alertcontext = useContext(alertContext);
+  
   const [selectedCheckbox, setSelectedCheckbox] = useState('admin'); // Default selected checkbox is 'option1'
 
   /// de strusture
-  const { showAlert } = alertcontext;
+  
   const navigate = useNavigate();
   const auth = useSelector((state) => state.auth);
 

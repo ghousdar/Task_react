@@ -18,9 +18,6 @@ const cartSlice = createSlice({
         (item) => item._id === action.payload._id
      
       );
-
-     
-    
       if (existingIndex >= 0 ) {
 
 
