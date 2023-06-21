@@ -11,6 +11,7 @@ const initialState = {
 
 export const productsFetch = createAsyncThunk(
   "products/productsFetch",
+  // not being used.
   async () => {
     try {
       const response = await axios.get(`${url}/products`);
