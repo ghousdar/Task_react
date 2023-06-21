@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState,useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { productsCreate } from "../../slices/productsSlice";
 import { useGetAllProductsQuery } from "../../slices/productsApi";
 const AdminPost = () => {
   // image wala km
   const [img, setImg] = useState();
   const dispatch = useDispatch();
-  const { data, error, isLoading } = useGetAllProductsQuery();
+  const { data} = useGetAllProductsQuery();
 
   const [credentials, setCredentials] = useState({
     productName: "",
@@ -30,7 +30,6 @@ const AdminPost = () => {
   };
 
   const handleClick = async (e) => {
-
     e.preventDefault();
     try {
       // const response = await axios.post(
@@ -43,10 +42,20 @@ const AdminPost = () => {
       // console.log(json);
 
       dispatch(productsCreate(credentials));
+      setCredentials({
+        productName: "",
+        description: "",
+        price: "",
+        image: "",
+        quantity: "",
+      });
     } catch (e) {
       console.error(e);
     }
   };
+
+ 
+  
 
   return (
     <>
@@ -125,15 +134,15 @@ const AdminPost = () => {
       </form>
 
       <div>
-       <h1>Stock Details</h1> 
+        <h1>Stock Details</h1>
         <div>
           {data &&
-              data?.map((product) => (
-            <div key={product._id}>
-              <h3>{product.productName}</h3>
-              <p>Quantity: {product.quantity}</p>
-            </div>
-          ))}
+            data?.map((product) => (
+              <div key={product._id}>
+                <h3>{product.productName}</h3>
+                <p>Quantity: {product.quantity}</p>
+              </div>
+            ))}
         </div>
       </div>
     </>

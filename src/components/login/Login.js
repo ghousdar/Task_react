@@ -1,12 +1,9 @@
-
-
 import React, {useState, useEffect } from "react";
-
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { isEmpty } from "lodash";
 import { loginUser } from "../../slices/authSlice";
-import jwtDecode from "jwt-decode";
+
 const Login = (props) => {
   // to use alert using context
  

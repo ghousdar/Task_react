@@ -27,11 +27,6 @@ export const productsCreate = createAsyncThunk(
   "products/productsCreate",
   async (credentials,{ rejectWithValue }) => {
 
-    
-
-   
-
-
     try {
       const formData = new FormData();
       formData.append("image", credentials.image, credentials.image.name);

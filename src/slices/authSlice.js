@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import jwtDecode from "jwt-decode";
 import axios from "axios";
 
-import { url, setHeaders } from "../slices/Api";
+import { url } from "../slices/Api";
 
 
 
