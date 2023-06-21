@@ -35,12 +35,9 @@ exports.createproduct = async (req, res) => {
         image: product.image,
         // },
       };
-      const authtoken = jwt.sign(data, JWT_SECRET);
-      success = true;
-      // nechy wali line ko tb uncomment krna jb testing krni ho werna br br gmail pr message jye ga
-  
-   ///*  sendVerifyEmail(req.body.name,req.body.email,user._id)  *///
-        res.json(authtoken);
+    
+
+        res.json(data);
       
   
     } catch (error) {

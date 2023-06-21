@@ -1,12 +1,15 @@
 import React, { useState,useEffect } from "react";
-import { useDispatch } from "react-redux";
+
 import { productsCreate } from "../../slices/productsSlice";
 import { useGetAllProductsQuery } from "../../slices/productsApi";
+import { useDispatch, useSelector } from "react-redux";
+
 const AdminPost = () => {
   // image wala km
   const [img, setImg] = useState();
   const dispatch = useDispatch();
   const { data} = useGetAllProductsQuery();
+  const products = useSelector((state) => state.products);
 
   const [credentials, setCredentials] = useState({
     productName: "",
@@ -41,7 +44,9 @@ const AdminPost = () => {
       // const json = await response.data;
       // console.log(json);
 
-      dispatch(productsCreate(credentials));
+     dispatch(productsCreate(credentials));
+
+ 
       setCredentials({
         productName: "",
         description: "",
@@ -54,6 +59,7 @@ const AdminPost = () => {
     }
   };
 
+ console.log(products)
  
   
 
@@ -129,16 +135,16 @@ const AdminPost = () => {
           type="submit"
           className="btn btn-primary"
         >
-          Add Product
+         {products.createStatus === "pending" ? "Adding..." : "Add Product"}
         </button>
       </form>
 
       <div>
         <h1>Stock Details</h1>
         <div>
-          {data &&
-            data?.map((product) => (
-              <div key={product._id}>
+          {products.items &&
+            products.items?.map((product,index) => (
+              <div key={index}>
                 <h3>{product.productName}</h3>
                 <p>Quantity: {product.quantity}</p>
               </div>
